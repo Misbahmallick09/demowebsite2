@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stitch & Cozy Co. - Handmade Crochet & Plushies</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'cozy-pink-light': '#FDF0F5',
+                        'cozy-pink': '#F7C5D3',
+                        'cozy-pink-mid': '#ECA1B5',
+                        'cozy-berry': '#621026',
+                        'cozy-berry-dark': '#420817',
+                        'cozy-cream': '#FFFDF9',
+                        'cozy-yellow': '#FFF2B2',
+                    },
+                    fontFamily: {
+                        handwriting: ['Caveat', 'cursive'],
+                        display: ['Fredoka', 'sans-serif'],
+                        body: ['Quicksand', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Scallop Scalloped Border effect */
+        .scallop-bottom {
+            background-image: radial-gradient(circle at 10px 0, transparent 12px, #621026 13px);
+            background-size: 20px 20px;
+            background-repeat: repeat-x;
+        }
+        .scallop-top {
+            background-image: radial-gradient(circle at 10px 20px, transparent 12px, #621026 13px);
+            background-size: 20px 20px;
+            background-repeat: repeat-x;
+        }
+        .scallop-light-bottom {
+            background-image: radial-gradient(circle at 10px 0, transparent 12px, #FDF0F5 13px);
+            background-size: 20px 20px;
+            background-repeat: repeat-x;
+        }
+        
+        /* Custom scrollbars */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FDF0F5;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #ECA1B5;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #621026;
+        }
+        
+        /* Star graphic burst frame */
+        .starburst {
+            clip-path: polygon(50% 0%, 63% 18%, 81% 6%, 80% 28%, 100% 35%, 87% 50%, 98% 68%, 78% 72%, 73% 94%, 56% 83%, 38% 97%, 32% 76%, 10% 81%, 18% 60%, 0% 48%, 18% 36%, 9% 14%, 30% 21%);
+        }
+
+        .pulse-heart {
+            animation: heartBeat 1.2s infinite ease-in-out;
+        }
+        @keyframes heartBeat {
+            0% { transform: scale(1); }
+            14% { transform: scale(1.15); }
+            28% { transform: scale(1); }
+            42% { transform: scale(1.15); }
+            70% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body class="bg-cozy-pink-light font-body text-gray-800 antialiased selection:bg-cozy-pink selection:text-cozy-berry min-h-screen flex flex-col">
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-cozy-berry text-cozy-cream px-5 py-3 rounded-2xl shadow-xl flex items-center space-x-3">
+        <i id="toast-icon" class="fa-solid fa-circle-check text-cozy-pink text-xl"></i>
+        <span id="toast-msg" class="font-medium text-sm">Item added to cart!</span>
+    </div>
+
+    <!-- Navigation Bar -->
+    <header class="sticky top-0 z-40 bg-cozy-cream/90 backdrop-blur-md border-b-2 border-cozy-pink/40">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+            <!-- Mobile Menu Toggle -->
+            <button id="mobile-menu-btn" class="md:hidden text-cozy-berry text-2xl p-1 focus:outline-none">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center space-x-2 group">
+                <div class="w-10 h-10 rounded-full bg-cozy-pink flex items-center justify-center text-cozy-berry text-xl group-hover:rotate-12 transition-transform">
+                    <i class="fa-solid fa-yarn"></i>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-display font-bold text-xl md:text-2xl text-cozy-berry leading-tight">Stitch & Cozy Co.</span>
+                    <span class="font-handwriting text-xs text-cozy-berry-dark -mt-1 hidden sm:inline">handmade with love</span>
+                </div>
+            </a>
+
+            <!-- Navigation Links -->
+            <nav class="hidden md:flex items-center space-x-8 font-display text-sm font-semibold text-cozy-berry">
+                <a href="#hero" class="hover:text-cozy-pink-mid transition-colors">Home</a>
+                <a href="#story" class="hover:text-cozy-pink-mid transition-colors">My Story</a>
+                <a href="#work" class="hover:text-cozy-pink-mid transition-colors">Categories</a>
+                <a href="#shop" class="hover:text-cozy-pink-mid transition-colors">Shop</a>
+                <a href="#custom" class="hover:text-cozy-pink-mid transition-colors">Custom Order</a>
+            </nav>
+
+            <!-- Action Icons -->
+            <div class="flex items-center space-x-4">
+                <!-- Search Button Mobile -->
+                <button onclick="document.getElementById('shop').scrollIntoView({behavior: 'smooth'});" class="text-cozy-berry hover:text-cozy-pink-mid p-1 text-lg">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+
+                <!-- Wishlist Button -->
+                <button onclick="toggleModal('wishlist-modal')" class="relative text-cozy-berry hover:text-cozy-pink-mid p-1 text-lg transition-transform active:scale-95">
+                    <i class="fa-solid fa-heart"></i>
+                    <span id="wishlist-badge" class="absolute -top-1 -right-2 bg-cozy-berry text-cozy-cream text-[10px] font-bold rounded-full h-4 min-w-[16px] px-1 flex items-center justify-center border border-cozy-cream">0</span>
+                </button>
+
+                <!-- Cart Button -->
+                <button onclick="toggleModal('cart-modal')" class="relative text-cozy-berry hover:text-cozy-pink-mid p-1 text-lg transition-transform active:scale-95">
+                    <i class="fa-solid fa-basket-shopping"></i>
+                    <span id="cart-badge" class="absolute -top-1 -right-2 bg-cozy-berry text-cozy-cream text-[10px] font-bold rounded-full h-4 min-w-[16px] px-1 flex items-center justify-center border border-cozy-cream">0</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Drawer Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-cozy-cream border-b border-cozy-pink px-4 pt-2 pb-4 space-y-2 text-center font-display text-cozy-berry">
+            <a href="#hero" onclick="toggleMobileMenu()" class="block py-2 hover:bg-cozy-pink-light rounded-xl">Home</a>
+            <a href="#story" onclick="toggleMobileMenu()" class="block py-2 hover:bg-cozy-pink-light rounded-xl">My Story</a>
+            <a href="#work" onclick="toggleMobileMenu()" class="block py-2 hover:bg-cozy-pink-light rounded-xl">Categories</a>
+            <a href="#shop" onclick="toggleMobileMenu()" class="block py-2 hover:bg-cozy-pink-light rounded-xl">Shop</a>
+            <a href="#custom" onclick="toggleMobileMenu()" class="block py-2 hover:bg-cozy-pink-light rounded-xl">Custom Order</a>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="flex-grow">
+        
+        <!-- Hero Section -->
+        <section id="hero" class="relative py-12 md:py-16 px-4 bg-gradient-to-b from-cozy-cream via-cozy-pink-light to-cozy-pink-light overflow-hidden">
+            <!-- Decorative Background Details -->
+            <div class="absolute top-4 left-4 text-cozy-pink text-4xl opacity-50 rotate-12"><i class="fa-solid fa-heart"></i></div>
+            <div class="absolute bottom-6 right-8 text-cozy-pink text-5xl opacity-40 -rotate-12"><i class="fa-solid fa-yarn"></i></div>
+            
+            <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
+                <!-- Left Banner Text -->
+                <div class="flex-1 text-center md:text-left space-y-4">
+                    <div class="inline-flex items-center space-x-2 bg-cozy-pink/40 text-cozy-berry font-semibold px-3 py-1 rounded-full text-xs uppercase tracking-wider mb-1">
+                        <i class="fa-solid fa-sparkles text-xs"></i>
+                        <span>100% Handmade Crochet</span>
+                    </div>
+                    <h1 class="font-display font-bold text-4xl md:text-6xl text-cozy-berry leading-tight">
+                        Crocheting
+                    </h1>
+                    <p class="font-handwriting text-2xl md:text-3xl text-cozy-berry-dark font-medium">
+                        it all starts with one stitch <i class="fa-solid fa-heart text-cozy-pink-mid text-xl"></i>
+                    </p>
+                    <p class="text-gray-6xl text-sm md:text-base max-w-md font-medium leading-relaxed">
+                        Soft, aesthetic, and handcrafted plushies, cozy wearables, and accessories crafted stitch by stitch.
+                    </p>
+                    <div class="pt-2 flex flex-wrap gap-4 justify-center md:justify-start">
+                        <a href="#shop" class="bg-cozy-berry hover:bg-cozy-berry-dark text-cozy-cream font-display font-semibold px-6 py-3 rounded-2xl shadow-lg transition-all transform hover:-translate-y-0.5 active:translate-y-0">
+                            Explore Shop <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+                        </a>
+                        <a href="#custom" class="bg-cozy-pink hover:bg-cozy-pink-mid text-cozy-berry font-display font-semibold px-6 py-3 rounded-2xl shadow transition-all transform hover:-translate-y-0.5">
+                            Request Custom
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Hero Image Stack & Graphic -->
+                <div class="flex-1 relative flex justify-center items-center">
+                    <div class="w-72 h-72 md:w-80 md:h-80 bg-cozy-yellow starburst flex items-center justify-center p-6 shadow-md transform rotate-3">
+                        <div class="w-full h-full rounded-2xl overflow-hidden shadow-inner border-2 border-white relative group">
+                            <img src="https://images.unsplash.com/photo-1615233500042-19e0bed813c0?auto=format&fit=crop&w=800&q=80" alt="Crochet Hero Showcase" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute bottom-2 right-2 bg-cozy-cream/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-display text-cozy-berry font-bold shadow">
+                                ✨ Stitch Magic
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Wave Divider -->
+        <div class="w-full overflow-hidden leading-none text-cozy-cream">
+            <svg class="relative block w-full h-8" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" fill="#FDF0F5"></path>
+            </svg>
+        </div>
+
+        <!-- My Story Section -->
+        <section id="story" class="py-12 px-4 max-w-4xl mx-auto">
+            <div class="bg-cozy-cream border-2 border-cozy-pink/60 rounded-3xl p-6 md:p-8 shadow-sm relative">
+                <div class="flex flex-col md:flex-row items-center gap-6">
+                    <!-- Left Story Text -->
+                    <div class="flex-1 space-y-3">
+                        <h2 class="font-handwriting text-3xl md:text-4xl text-cozy-berry font-bold flex items-center gap-2">
+                            <i class="fa-solid fa-scissors text-cozy-pink-mid text-xl"></i> my story
+                        </h2>
+                        <p class="text-sm md:text-base leading-relaxed text-gray-700 font-medium">
+                            Hi, I'm <span class="font-bold text-cozy-berry">Arnika</span>! I love crocheting and turning simple yarn into beautiful, high-quality handmade pieces. For me, crochet is a relaxing way to create something special, warm, and cute—one stitch at a time. 🧶✨
+                        </p>
+                        <div class="pt-2 flex items-center space-x-2 text-xs font-semibold text-cozy-berry-dark">
+                            <span class="bg-cozy-pink/40 px-3 py-1 rounded-full"><i class="fa-solid fa-heart mr-1"></i> Hand-hooked</span>
+                            <span class="bg-cozy-pink/40 px-3 py-1 rounded-full"><i class="fa-solid fa-leaf mr-1"></i> Eco-Yarn</span>
+                        </div>
+                    </div>
+                    <!-- Right Story Graphic Card -->
+                    <div class="w-36 h-36 md:w-44 md:h-44 rounded-2xl overflow-hidden border-4 border-cozy-pink/50 shadow-md transform -rotate-2 flex-shrink-0">
+                        <img src="https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=500&q=80" alt="Crocheting Yarn Crafts" class="w-full h-full object-cover">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Category Showcase / My Work -->
+        <section id="work" class="py-8 px-4 max-w-6xl mx-auto">
+            <h2 class="font-handwriting text-3xl md:text-4xl text-cozy-berry font-bold text-center mb-6">
+                <i class="fa-solid fa-wand-magic-sparkles text-cozy-pink-mid"></i> my work categories
+            </h2>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+                <!-- Cat 1 -->
+                <button onclick="filterCategory('Toys')" class="group bg-cozy-cream p-3 rounded-2xl border border-cozy-pink/50 hover:border-cozy-berry transition-all text-center flex flex-col items-center">
+                    <div class="w-16 h-16 rounded-full overflow-hidden mb-2 border-2 border-cozy-pink">
+                        <img src="https://images.unsplash.com/photo-1563241527-3004b7be0ffd?auto=format&fit=crop&w=300&q=80" alt="Cute Toys" class="w-full h-full object-cover group-hover:scale-110 transition-transform">
+                    </div>
+                    <span class="font-display text-xs md:text-sm font-semibold text-cozy-berry">Cute Toys</span>
+                </button>
+
+                <!-- Cat 2 -->
+                <button onclick="filterCategory('Accessories')" class="group bg-cozy-cream p-3 rounded-2xl border border-cozy-pink/50 hover:border-cozy-berry transition-all text-center flex flex-col items-center">
+                    <div class="w-16 h-16 rounded-full overflow-hidden mb-2 border-2 border-cozy-pink">
+                        <img src="https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=300&q=80" alt="Sleeves & Cases" class="w-full h-full object-cover group-hover:scale-110 transition-transform">
+                    </div>
+                    <span class="font-display text-xs md:text-sm font-semibold text-cozy-berry">Laptop Sleeves</span>
+                </button>
+
+                <!-- Cat 3 -->
+                <button onclick="filterCategory('Bags')" class="group bg-cozy-cream p-3 rounded-2xl border border-cozy-pink/50 hover:border-cozy-berry transition-all text-center flex flex-col items-center">
+                    <div class="w-16 h-16 rounded-full overflow-hidden mb-2 border-2 border-cozy-pink">
+                        <img src="https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=300&q=80" alt="Chic Bags" class="w-full h-full object-cover group-hover:scale-110 transition-transform">
+                    </div>
+                    <span class="font-display text-xs md:text-sm font-semibold text-cozy-berry">Chic Bags</span>
+                </button>
+
+                <!-- Cat 4 -->
+                <button onclick="filterCategory('Accessories')" class="group bg-cozy-cream p-3 rounded-2xl border border-cozy-pink/50 hover:border-cozy-berry transition-all text-center flex flex-col items-center">
+                    <div class="w-16 h-16 rounded-full overflow-hidden mb-2 border-2 border-cozy-pink">
+                        <img src="https://images.unsplash.com/photo-1608256246200-53e635b5b65f?auto=format&fit=crop&w=300&q=80" alt="Woven Scarf" class="w-full h-full object-cover group-hover:scale-110 transition-transform">
+                    </div>
+                    <span class="font-display text-xs md:text-sm font-semibold text-cozy-berry">Season Scarves</span>
+                </button>
+
+                <!-- Cat 5 -->
+                <button onclick="filterCategory('Clothing')" class="group bg-cozy-cream p-3 rounded-2xl border border-cozy-pink/50 hover:border-cozy-berry transition-all text-center flex flex-col items-center col-span-2 sm:col-span-1">
+                    <div class="w-16 h-16 rounded-full overflow-hidden mb-2 border-2 border-cozy-pink">
+                        <img src="https://images.unsplash.com/photo-1434389677669-e08b4cac3105?auto=format&fit=crop&w=300&q=80" alt="Trendy Tops" class="w-full h-full object-cover group-hover:scale-110 transition-transform">
+                    </div>
+                    <span class="font-display text-xs md:text-sm font-semibold text-cozy-berry">Trendy Tops</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Main Shop Section Container with Dark Berry Header Theme -->
+        <section id="shop" class="py-10 px-2 sm:px-4 max-w-6xl mx-auto">
+            <div class="bg-cozy-berry text-cozy-cream rounded-t-3xl pt-8 pb-6 px-4 sm:px-6 shadow-lg">
+                <div class="text-center space-y-2">
+                    <h2 class="font-handwriting text-4xl sm:text-5xl text-cozy-pink tracking-wide">shop</h2>
+                    <p class="text-xs sm:text-sm font-display text-cozy-pink-light/80">Discover unique handmade crochet items made just for you</p>
+                </div>
+
+                <!-- Search & Filters Header Controls -->
+                <div class="mt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <!-- Search Input Box -->
+                    <div class="relative w-full sm:w-72">
+                        <input type="text" id="search-input" onkeyup="handleSearch()" placeholder="Search crochet items..." class="w-full py-2 pl-9 pr-4 rounded-full text-xs sm:text-sm text-gray-800 bg-cozy-cream focus:outline-none focus:ring-2 focus:ring-cozy-pink placeholder-gray-400 font-body">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-gray-400 text-xs"></i>
+                    </div>
+
+                    <!-- Filter Category Pills -->
+                    <div class="flex flex-wrap justify-center gap-2 font-display text-xs">
+                        <button onclick="filterCategory('All')" class="cat-btn active-cat bg-cozy-pink text-cozy-berry px-4 py-1.5 rounded-full font-semibold transition-all">All</button>
+                        <button onclick="filterCategory('Toys')" class="cat-btn bg-cozy-berry-dark hover:bg-cozy-pink/20 text-cozy-cream px-4 py-1.5 rounded-full font-semibold transition-all">Toys</button>
+                        <button onclick="filterCategory('Bags')" class="cat-btn bg-cozy-berry-dark hover:bg-cozy-pink/20 text-cozy-cream px-4 py-1.5 rounded-full font-semibold transition-all">Bags</button>
+                        <button onclick="filterCategory('Accessories')" class="cat-btn bg-cozy-berry-dark hover:bg-cozy-pink/20 text-cozy-cream px-4 py-1.5 rounded-full font-semibold transition-all">Accessories</button>
+                        <button onclick="filterCategory('Clothing')" class="cat-btn bg-cozy-berry-dark hover:bg-cozy-pink/20 text-cozy-cream px-4 py-1.5 rounded-full font-semibold transition-all">Clothing</button>
+                    </div>
+
+                    <!-- Sort Select Dropdown -->
+                    <div class="relative">
+                        <select id="sort-select" onchange="handleSort()" class="bg-cozy-berry-dark text-cozy-cream text-xs font-display py-2 px-3 pr-8 rounded-xl border border-cozy-pink/30 focus:outline-none cursor-pointer">
+                            <option value="featured">Sort: Featured</option>
+                            <option value="low-high">Price: Low to High</option>
+                            <option value="high-low">Price: High to Low</option>
+                            <option value="rating">Highest Rated</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scalloped transition border under shop header -->
+            <div class="w-full h-4 scallop-bottom mb-6"></div>
+
+            <!-- Shop Items Grid -->
+            <div id="product-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6 px-2">
+                <!-- Dynamic Products Injected via JS -->
+            </div>
+        </section>
+
+        <!-- Custom Order Section ("Made just for you") -->
+        <section id="custom" class="py-12 px-4 max-w-4xl mx-auto">
+            <div class="bg-cozy-cream border-2 border-cozy-pink rounded-3xl p-6 sm:p-10 shadow-md relative overflow-hidden">
+                <div class="text-center max-w-lg mx-auto mb-6">
+                    <span class="text-xs font-display font-semibold text-cozy-pink-mid uppercase tracking-wider">Made just for you</span>
+                    <h2 class="font-display font-bold text-3xl sm:text-4xl text-cozy-berry mt-1">Custom Order</h2>
+                    <p class="text-xs sm:text-sm text-gray-600 mt-1">Have a specific design, color palette, or yarn idea in mind? Let's bring it to life!</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <!-- Left Custom Box Graphic -->
+                    <div class="bg-cozy-pink-light p-6 rounded-2xl border border-cozy-pink flex flex-col items-center text-center space-y-3">
+                        <div class="w-24 h-24 bg-cozy-pink/40 rounded-full flex items-center justify-center text-cozy-berry text-4xl">
+                            <i class="fa-solid fa-box-open"></i>
+                        </div>
+                        <h3 class="font-display font-bold text-cozy-berry text-lg">Custom Crochet Box</h3>
+                        <p class="text-xs text-gray-600">Pick your favorite yarn colors, dimensions, or send an inspirational photo from Pinterest!</p>
+                        <div class="flex items-center space-x-2 text-xs font-bold text-cozy-berry-dark">
+                            <i class="fa-solid fa-clock"></i> <span>Turnaround: 5-7 Days</span>
+                        </div>
+                    </div>
+
+                    <!-- Right Request Form -->
+                    <form id="custom-order-form" onsubmit="handleCustomSubmit(event)" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-display font-bold text-cozy-berry mb-1">What would you like?</label>
+                            <select required class="w-full text-xs font-body p-2.5 rounded-xl border border-cozy-pink focus:outline-none focus:ring-2 focus:ring-cozy-berry bg-white">
+                                <option value="">Select a category...</option>
+                                <option value="Plushie/Toy">Custom Plushie / Amigurumi</option>
+                                <option value="Bag">Custom Crochet Bag / Tote</option>
+                                <option value="Wearable">Custom Top / Cardigan</option>
+                                <option value="Accessory">Custom Scarf / Hat / Keychain</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-display font-bold text-cozy-berry mb-1">Tell me about your idea</label>
+                            <textarea required rows="3" placeholder="Describe your dream piece (colors, sizes, details)..." class="w-full text-xs font-body p-2.5 rounded-xl border border-cozy-pink focus:outline-none focus:ring-2 focus:ring-cozy-berry bg-white"></textarea>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-display font-bold text-cozy-berry mb-1">Upload inspiration image (optional)</label>
+                            <input type="file" accept="image/*" class="w-full text-xs text-gray-500 file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-cozy-pink file:text-cozy-berry hover:file:bg-cozy-pink-mid cursor-pointer">
+                        </div>
+
+                        <button type="submit" class="w-full bg-cozy-berry hover:bg-cozy-berry-dark text-cozy-cream font-display text-xs font-bold py-3 rounded-xl shadow transition-colors">
+                            Send Custom Request <i class="fa-solid fa-paper-plane ml-1"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="bg-cozy-cream border-t border-cozy-pink/40 mt-12 py-8 px-4 text-center relative">
+        <div class="max-w-4xl mx-auto space-y-4">
+            <h3 class="font-handwriting text-3xl text-cozy-berry font-bold">Made with love</h3>
+            <p class="text-xs text-gray-600 max-w-md mx-auto">
+                Each stitch is crafted with care and passion to bring warmth and happiness into your everyday life.
+            </p>
+
+            <div class="flex justify-center space-x-6 text-cozy-berry text-lg py-2">
+                <a href="#" class="hover:text-cozy-pink-mid transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" class="hover:text-cozy-pink-mid transition-colors"><i class="fa-brands fa-tiktok"></i></a>
+                <a href="#" class="hover:text-cozy-pink-mid transition-colors"><i class="fa-brands fa-pinterest"></i></a>
+                <a href="#" class="hover:text-cozy-pink-mid transition-colors"><i class="fa-solid fa-envelope"></i></a>
+            </div>
+
+            <p class="text-[11px] text-gray-400 font-body">
+                &copy; 2026 Stitch & Cozy Co. All rights reserved. Self-contained Single Page Application.
+            </p>
+        </div>
+    </footer>
+
+    <!-- MODALS SECTION -->
+
+    <!-- Product Quick View & Reviews Modal -->
+    <div id="product-modal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-cozy-cream w-full max-w-2xl rounded-3xl overflow-hidden shadow-2xl border-2 border-cozy-pink flex flex-col max-h-[90vh] animate-fadeIn">
+            <!-- Modal Header -->
+            <div class="p-4 bg-cozy-pink-light border-b border-cozy-pink flex justify-between items-center">
+                <span id="modal-cat" class="text-xs font-display font-bold uppercase text-cozy-berry bg-cozy-pink px-2.5 py-0.5 rounded-full">Category</span>
+                <button onclick="toggleModal('product-modal')" class="text-cozy-berry hover:text-cozy-berry-dark text-xl font-bold w-8 h-8 rounded-full flex items-center justify-center hover:bg-cozy-pink/50">
+                    &times;
+                </button>
+            </div>
+
+            <!-- Modal Content Scrollable Body -->
+            <div class="p-6 overflow-y-auto space-y-6">
+                <div class="flex flex-col md:flex-row gap-6">
+                    <!-- Large Image -->
+                    <div class="w-full md:w-1/2 h-64 rounded-2xl overflow-hidden border border-cozy-pink flex-shrink-0">
+                        <img id="modal-img" src="" alt="Product Image" class="w-full h-full object-cover">
+                    </div>
+
+                    <!-- Details -->
+                    <div class="flex-1 space-y-3">
+                        <h3 id="modal-title" class="font-display font-bold text-2xl text-cozy-berry">Product Title</h3>
+                        <div class="flex items-center space-x-2">
+                            <div id="modal-stars" class="text-amber-400 text-xs flex"></div>
+                            <span id="modal-rating-num" class="text-xs font-bold text-gray-600">4.9 (24)</span>
+                        </div>
+                        <div id="modal-price" class="text-2xl font-display font-bold text-cozy-berry">$0.00</div>
+                        <p id="modal-desc" class="text-xs text-gray-600 leading-relaxed">Detailed description about this handmade product...</p>
+
+                        <div class="pt-2 flex items-center space-x-3">
+                            <button id="modal-add-btn" class="flex-1 bg-cozy-berry hover:bg-cozy-berry-dark text-cozy-cream font-display text-xs font-bold py-3 rounded-xl shadow flex items-center justify-center space-x-2 transition-colors">
+                                <i class="fa-solid fa-cart-plus"></i>
+                                <span>Add to Cart</span>
+                            </button>
+                            <button id="modal-wish-btn" class="p-3 border border-cozy-pink hover:bg-cozy-pink text-cozy-berry rounded-xl transition-colors">
+                                <i class="fa-solid fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Customer Reviews Section -->
+                <div class="border-t border-cozy-pink/40 pt-4 space-y-3">
+                    <h4 class="font-display font-bold text-cozy-berry text-base flex items-center justify-between">
+                        <span>Customer Reviews & Ratings</span>
+                        <span class="text-xs font-normal text-cozy-berry-dark">100% Verified Buyers</span>
+                    </h4>
+
+                    <!-- Reviews List Container -->
+                    <div id="reviews-list" class="space-y-2 max-h-36 overflow-y-auto pr-1">
+                        <!-- Reviews inserted dynamically -->
+                    </div>
+
+                    <!-- Add Review Form -->
+                    <form onsubmit="handleAddReview(event)" class="bg-cozy-pink-light p-3 rounded-2xl border border-cozy-pink/50 space-y-2">
+                        <span class="text-xs font-display font-bold text-cozy-berry block">Leave a Review</span>
+                        <div class="flex gap-2">
+                            <input type="text" id="reviewer-name" placeholder="Your Name" required class="flex-1 text-xs p-2 rounded-xl border border-cozy-pink font-body bg-white">
+                            <select id="reviewer-rating" class="text-xs p-2 rounded-xl border border-cozy-pink font-body bg-white">
+                                <option value="5">★★★★★ (5/5)</option>
+                                <option value="4">★★★★☆ (4/5)</option>
+                                <option value="3">★★★☆☆ (3/5)</option>
+                            </select>
+                        </div>
+                        <textarea id="reviewer-comment" rows="2" placeholder="Write your thoughts..." required class="w-full text-xs p-2 rounded-xl border border-cozy-pink font-body bg-white"></textarea>
+                        <button type="submit" class="bg-cozy-pink hover:bg-cozy-pink-mid text-cozy-berry font-display font-bold text-xs px-4 py-1.5 rounded-xl transition-colors">
+                            Submit Review
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Shopping Cart Modal -->
+    <div id="cart-modal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden flex justify-end">
+        <div class="bg-cozy-cream w-full max-w-md h-full shadow-2xl flex flex-col animate-slideLeft">
+            <!-- Header -->
+            <div class="p-4 bg-cozy-berry text-cozy-cream flex justify-between items-center">
+                <div class="flex items-center space-x-2 font-display font-bold text-lg">
+                    <i class="fa-solid fa-basket-shopping text-cozy-pink"></i>
+                    <span>Your Shopping Bag</span>
+                </div>
+                <button onclick="toggleModal('cart-modal')" class="text-cozy-cream hover:text-cozy-pink text-2xl font-bold">
+                    &times;
+                </button>
+            </div>
+
+            <!-- Cart Items List -->
+            <div id="cart-items-container" class="flex-1 overflow-y-auto p-4 space-y-3">
+                <!-- Cart items loaded dynamically -->
+            </div>
+
+            <!-- Cart Summary & Checkout Footer -->
+            <div class="p-4 bg-cozy-pink-light border-t border-cozy-pink space-y-3">
+                <div class="flex justify-between items-center text-sm font-display font-bold text-cozy-berry">
+                    <span>Subtotal:</span>
+                    <span id="cart-subtotal">$0.00</span>
+                </div>
+                <p class="text-[11px] text-gray-500">Shipping & taxes calculated at checkout.</p>
+                <button onclick="openCheckout()" class="w-full bg-cozy-berry hover:bg-cozy-berry-dark text-cozy-cream font-display font-bold text-sm py-3 rounded-2xl shadow transition-colors flex items-center justify-center space-x-2">
+                    <span>Proceed to Checkout</span>
+                    <i class="fa-solid fa-arrow-right text-xs"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Wishlist Modal -->
+    <div id="wishlist-modal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden flex justify-end">
+        <div class="bg-cozy-cream w-full max-w-md h-full shadow-2xl flex flex-col animate-slideLeft">
+            <!-- Header -->
+            <div class="p-4 bg-cozy-berry text-cozy-cream flex justify-between items-center">
+                <div class="flex items-center space-x-2 font-display font-bold text-lg">
+                    <i class="fa-solid fa-heart text-cozy-pink"></i>
+                    <span>Your Wishlist</span>
+                </div>
+                <button onclick="toggleModal('wishlist-modal')" class="text-cozy-cream hover:text-cozy-pink text-2xl font-bold">
+                    &times;
+                </button>
+            </div>
+
+            <!-- Wishlist Items List -->
+            <div id="wishlist-items-container" class="flex-1 overflow-y-auto p-4 space-y-3">
+                <!-- Wishlist items loaded dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div id="checkout-modal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-cozy-cream w-full max-w-lg rounded-3xl overflow-hidden shadow-2xl border-2 border-cozy-pink p-6 space-y-4 max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center border-b border-cozy-pink pb-3">
+                <h3 class="font-display font-bold text-xl text-cozy-berry">Complete Your Order</h3>
+                <button onclick="toggleModal('checkout-modal')" class="text-cozy-berry text-xl font-bold">&times;</button>
+            </div>
+
+            <form onsubmit="handleCheckoutSubmit(event)" class="space-y-3">
+                <div>
+                    <label class="block text-xs font-display font-bold text-cozy-berry mb-1">Full Name</label>
+                    <input type="text" required placeholder="e.g. Jane Doe" class="w-full text-xs p-2.5 rounded-xl border border-cozy-pink font-body bg-white">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-display font-bold text-cozy-berry mb-1">Shipping Address</label>
+                    <input type="text" required placeholder="123 Cozy St, Stitch City" class="w-full text-xs p-2.5 rounded-xl border border-cozy-pink font-body bg-white">
+                </div>
+
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="block text-xs font-display font-bold text-cozy-berry mb-1">Payment Method</label>
+                        <select class="w-full text-xs p-2.5 rounded-xl border border-cozy-pink font-body bg-white">
+                            <option>Credit / Debit Card</option>
+                            <option>PayPal</option>
+                            <option>Apple Pay</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-display font-bold text-cozy-berry mb-1">Promo Code</label>
+                        <input type="text" placeholder="COZY10" class="w-full text-xs p-2.5 rounded-xl border border-cozy-pink font-body bg-white">
+                    </div>
+                </div>
+
+                <div class="bg-cozy-pink-light p-3 rounded-xl text-xs space-y-1">
+                    <div class="flex justify-between font-bold text-cozy-berry">
+                        <span>Total Payment:</span>
+                        <span id="checkout-total">$0.00</span>
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full bg-cozy-berry hover:bg-cozy-berry-dark text-cozy-cream font-display font-bold text-xs py-3 rounded-xl shadow transition-colors">
+                    Place Order Now <i class="fa-solid fa-check ml-1"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // Store Products Master Data
+        const PRODUCTS = [
+            {
+                id: 1,
+                name: "Hello Kitty Crochet Plushie",
+                category: "Toys",
+                price: 28.00,
+                rating: 5.0,
+                reviewsCount: 32,
+                image: "https://images.unsplash.com/photo-1563241527-3004b7be0ffd?auto=format&fit=crop&w=600&q=80",
+                description: "Handcrafted kawaii plushie stuffed with hypoallergenic filling and detailed stitching.",
+                reviews: [
+                    { name: "Sophie M.", rating: 5, comment: "Cutest plushie ever! Super soft yarn." },
+                    { name: "Emily R.", rating: 5, comment: "Arrived quickly and looks exactly like the photos!" }
+                ]
+            },
+            {
+                id: 2,
+                name: "Pastel Woven Shoulder Tote",
+                category: "Bags",
+                price: 36.50,
+                rating: 4.8,
+                reviewsCount: 19,
+                image: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=600&q=80",
+                description: "Aesthetic shoulder bag made with durable cotton blend yarn. Fits all daily essentials.",
+                reviews: [
+                    { name: "Chloe K.", rating: 5, comment: "Holds my books and water bottle easily!" }
+                ]
+            },
+            {
+                id: 3,
+                name: "Checkered Laptop Sleeve Case",
+                category: "Accessories",
+                price: 24.00,
+                rating: 4.9,
+                reviewsCount: 15,
+                image: "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=600&q=80",
+                description: "Padded crochet laptop sleeve designed to protect your device with cozy style.",
+                reviews: [
+                    { name: "Anna P.", rating: 4, comment: "Fits my 13-inch Macbook perfectly." }
+                ]
+            },
+            {
+                id: 4,
+                name: "Cozy Bucket Hat",
+                category: "Accessories",
+                price: 22.00,
+                rating: 4.7,
+                reviewsCount: 28,
+                image: "https://images.unsplash.com/photo-1576871337632-b9aef4c17ab9?auto=format&fit=crop&w=600&q=80",
+                description: "Soft scalloped brim bucket hat woven with breathable cotton yarn.",
+                reviews: [
+                    { name: "Jessica L.", rating: 5, comment: "Love the scalloped pattern so much!" }
+                ]
+            },
+            {
+                id: 5,
+                name: "Warm Season Scarf",
+                category: "Accessories",
+                price: 30.00,
+                rating: 4.9,
+                reviewsCount: 12,
+                image: "https://images.unsplash.com/photo-1608256246200-53e635b5b65f?auto=format&fit=crop&w=600&q=80",
+                description: "Chunky textured knit scarf for autumn and winter warmth.",
+                reviews: [
+                    { name: "Maria G.", rating: 5, comment: "Super cozy and warm." }
+                ]
+            },
+            {
+                id: 6,
+                name: "Floral Knit Cami Top",
+                category: "Clothing",
+                price: 42.00,
+                rating: 5.0,
+                reviewsCount: 40,
+                image: "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?auto=format&fit=crop&w=600&q=80",
+                description: "Vintage aesthetic crochet crop top with detailed flower embroidery.",
+                reviews: [
+                    { name: "Clara T.", rating: 5, comment: "Fits like a dream!" }
+                ]
+            },
+            {
+                id: 7,
+                name: "Spiral Swirl Sweater",
+                category: "Clothing",
+                price: 58.00,
+                rating: 4.8,
+                reviewsCount: 17,
+                image: "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&fit=crop&w=600&q=80",
+                description: "Oversized cozy sweater featuring a retro spiral stitch pattern.",
+                reviews: [
+                    { name: "Hannah B.", rating: 5, comment: "So unique, I get compliments everywhere." }
+                ]
+            },
+            {
+                id: 8,
+                name: "Cherry Pair Charm Keychain",
+                category: "Accessories",
+                price: 12.00,
+                rating: 5.0,
+                reviewsCount: 54,
+                image: "https://images.unsplash.com/photo-1615233500042-19e0bed813c0?auto=format&fit=crop&w=600&q=80",
+                description: "Cute twin cherry bag charm with green leaf detailing.",
+                reviews: [
+                    { name: "Lily D.", rating: 5, comment: "Added it to my tote bag! Adorable." }
+                ]
+            }
+        ];
+
+        // Application State
+        let cart = [];
+        let wishlist = [];
+        let activeCategory = 'All';
+        let currentModalProductId = null;
+
+        // Initialize App on DOM Load
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProducts();
+            updateBadges();
+        });
+
+        // Toggle Mobile Menu
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+        document.getElementById('mobile-menu-btn').addEventListener('click', toggleMobileMenu);
+
+        // Render Products Grid
+        function renderProducts() {
+            const grid = document.getElementById('product-grid');
+            const searchVal = document.getElementById('search-input').value.toLowerCase();
+            const sortVal = document.getElementById('sort-select').value;
+
+            // Filter
+            let filtered = PRODUCTS.filter(p => {
+                const matchesCat = activeCategory === 'All' || p.category === activeCategory;
+                const matchesSearch = p.name.toLowerCase().includes(searchVal) || p.description.toLowerCase().includes(searchVal);
+                return matchesCat && matchesSearch;
+            });
+
+            // Sort
+            if (sortVal === 'low-high') {
+                filtered.sort((a, b) => a.price - b.price);
+            } else if (sortVal === 'high-low') {
+                filtered.sort((a, b) => b.price - a.price);
+            } else if (sortVal === 'rating') {
+                filtered.sort((a, b) => b.rating - a.rating);
+            }
+
+            // HTML Generation
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full py-12 text-center text-gray-500 font-display">
+                        <i class="fa-solid fa-face-frown text-3xl text-cozy-pink-mid mb-2 block"></i>
+                        No crochet items found matching your criteria.
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = filtered.map(product => {
+                const isWish = wishlist.includes(product.id);
+                return `
+                    <div class="bg-cozy-cream rounded-2xl p-2.5 sm:p-3 border border-cozy-pink/50 hover:border-cozy-berry hover:shadow-lg transition-all flex flex-col group">
+                        <!-- Product Image & Overlay Wishlist Button -->
+                        <div class="relative w-full h-36 sm:h-48 rounded-xl overflow-hidden bg-cozy-pink-light mb-2">
+                            <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                            
+                            <button onclick="toggleWishlist(${product.id})" class="absolute top-2 right-2 w-8 h-8 rounded-full bg-white/80 backdrop-blur-sm text-cozy-berry flex items-center justify-center hover:bg-cozy-pink transition-colors shadow-sm">
+                                <i class="${isWish ? 'fa-solid text-cozy-berry' : 'fa-regular'} fa-heart"></i>
+                            </button>
+                        </div>
+
+                        <!-- Info -->
+                        <div class="flex-1 flex flex-col justify-between space-y-1">
+                            <div>
+                                <div class="flex items-center justify-between text-[10px] font-bold text-gray-500 mb-0.5">
+                                    <span class="uppercase text-cozy-berry-dark">${product.category}</span>
+                                    <span class="text-amber-500"><i class="fa-solid fa-star"></i> ${product.rating.toFixed(1)}</span>
+                                </div>
+                                <h3 onclick="openProductModal(${product.id})" class="font-display font-bold text-xs sm:text-sm text-cozy-berry line-clamp-1 hover:underline cursor-pointer">
+                                    ${product.name}
+                                </h3>
+                            </div>
+
+                            <div class="pt-2 flex items-center justify-between border-t border-cozy-pink/30">
+                                <span class="font-display font-bold text-sm sm:text-base text-cozy-berry">$${product.price.toFixed(2)}</span>
+                                <div class="flex space-x-1">
+                                    <button onclick="openProductModal(${product.id})" class="p-1.5 sm:px-2 sm:py-1 rounded-xl bg-cozy-pink/40 hover:bg-cozy-pink text-cozy-berry text-xs transition-colors">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </button>
+                                    <button onclick="addToCart(${product.id})" class="p-1.5 sm:px-2 sm:py-1 rounded-xl bg-cozy-berry hover:bg-cozy-berry-dark text-cozy-cream text-xs font-bold transition-colors">
+                                        <i class="fa-solid fa-cart-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Category Filter Logic
+        function filterCategory(cat) {
+            activeCategory = cat;
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                if (btn.textContent.trim() === cat) {
+                    btn.className = 'cat-btn active-cat bg-cozy-pink text-cozy-berry px-4 py-1.5 rounded-full font-semibold transition-all';
+                } else {
+                    btn.className = 'cat-btn bg-cozy-berry-dark hover:bg-cozy-pink/20 text-cozy-cream px-4 py-1.5 rounded-full font-semibold transition-all';
+                }
+            });
+            renderProducts();
+        }
+
+        // Search & Sort Handlers
+        function handleSearch() { renderProducts(); }
+        function handleSort() { renderProducts(); }
+
+        // Modal Handler Generic
+        function toggleModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.toggle('hidden');
+        }
+
+        // Open Product Details Modal
+        function openProductModal(id) {
+            currentModalProductId = id;
+            const product = PRODUCTS.find(p => p.id === id);
+            if (!product) return;
+
+            document.getElementById('modal-img').src = product.image;
+            document.getElementById('modal-title').textContent = product.name;
+            document.getElementById('modal-cat').textContent = product.category;
+            document.getElementById('modal-price').textContent = `$${product.price.toFixed(2)}`;
+            document.getElementById('modal-desc').textContent = product.description;
+            document.getElementById('modal-rating-num').textContent = `${product.rating.toFixed(1)} (${product.reviews.length} reviews)`;
+
+            // Render Stars
+            const starsContainer = document.getElementById('modal-stars');
+            starsContainer.innerHTML = Array(5).fill(0).map((_, i) => 
+                `<i class="fa-solid fa-star ${i < Math.floor(product.rating) ? 'text-amber-400' : 'text-gray-300'}"></i>`
+            ).join('');
+
+            // Add button logic
+            document.getElementById('modal-add-btn').onclick = () => addToCart(product.id);
+            document.getElementById('modal-wish-btn').onclick = () => toggleWishlist(product.id);
+
+            // Render Reviews
+            renderReviews(product);
+
+            toggleModal('product-modal');
+        }
+
+        // Render Reviews List inside Modal
+        function renderReviews(product) {
+            const list = document.getElementById('reviews-list');
+            if (!product.reviews || product.reviews.length === 0) {
+                list.innerHTML = `<p class="text-xs text-gray-400 italic">No reviews yet. Be the first!</p>`;
+                return;
+            }
+
+            list.innerHTML = product.reviews.map(r => `
+                <div class="bg-white p-2.5 rounded-xl border border-cozy-pink/30 text-xs">
+                    <div class="flex justify-between items-center mb-1">
+                        <span class="font-bold text-cozy-berry">${r.name}</span>
+                        <span class="text-amber-400">${'★'.repeat(r.rating)}</span>
+                    </div>
+                    <p class="text-gray-600">${r.comment}</p>
+                </div>
+            `).join('');
+        }
+
+        // Handle Add New Review
+        function handleAddReview(e) {
+            e.preventDefault();
+            if (!currentModalProductId) return;
+
+            const name = document.getElementById('reviewer-name').value;
+            const rating = parseInt(document.getElementById('reviewer-rating').value);
+            const comment = document.getElementById('reviewer-comment').value;
+
+            const product = PRODUCTS.find(p => p.id === currentModalProductId);
+            if (product) {
+                product.reviews.unshift({ name, rating, comment });
+                renderReviews(product);
+                showToast("Thank you for your review!");
+                e.target.reset();
+            }
+        }
+
+        // Cart Actions
+        function addToCart(productId) {
+            const existing = cart.find(item => item.id === productId);
+            if (existing) {
+                existing.qty += 1;
+            } else {
+                cart.push({ id: productId, qty: 1 });
+            }
+            updateBadges();
+            renderCart();
+            showToast("Added to your cozy bag!");
+        }
+
+        function updateCartQty(productId, change) {
+            const item = cart.find(i => i.id === productId);
+            if (item) {
+                item.qty += change;
+                if (item.qty <= 0) {
+                    cart = cart.filter(i => i.id !== productId);
+                }
+            }
+            updateBadges();
+            renderCart();
+        }
+
+        function renderCart() {
+            const container = document.getElementById('cart-items-container');
+            const subtotalEl = document.getElementById('cart-subtotal');
+
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="h-full flex flex-col items-center justify-center text-gray-400 font-display text-center">
+                        <i class="fa-solid fa-basket-shopping text-4xl text-cozy-pink mb-2"></i>
+                        <p class="text-sm">Your shopping bag is empty.</p>
+                    </div>
+                `;
+                subtotalEl.textContent = '$0.00';
+                return;
+            }
+
+            let subtotal = 0;
+            container.innerHTML = cart.map(item => {
+                const product = PRODUCTS.find(p => p.id === item.id);
+                if (!product) return '';
+                const itemTotal = product.price * item.qty;
+                subtotal += itemTotal;
+
+                return `
+                    <div class="flex items-center space-x-3 bg-white p-2.5 rounded-2xl border border-cozy-pink/40">
+                        <img src="${product.image}" class="w-14 h-14 rounded-xl object-cover border border-cozy-pink">
+                        <div class="flex-1">
+                            <h4 class="font-display font-bold text-xs text-cozy-berry">${product.name}</h4>
+                            <span class="text-xs text-gray-500 font-bold">$${product.price.toFixed(2)}</span>
+                        </div>
+                        <div class="flex items-center space-x-2 bg-cozy-pink-light px-2 py-1 rounded-xl">
+                            <button onclick="updateCartQty(${product.id}, -1)" class="text-cozy-berry font-bold text-xs">-</button>
+                            <span class="text-xs font-bold text-cozy-berry">${item.qty}</span>
+                            <button onclick="updateCartQty(${product.id}, 1)" class="text-cozy-berry font-bold text-xs">+</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            subtotalEl.textContent = `$${subtotal.toFixed(2)}`;
+        }
+
+        // Wishlist Actions
+        function toggleWishlist(productId) {
+            const idx = wishlist.indexOf(productId);
+            if (idx > -1) {
+                wishlist.splice(idx, 1);
+                showToast("Removed from Wishlist");
+            } else {
+                wishlist.push(productId);
+                showToast("Saved to Wishlist!");
+            }
+            updateBadges();
+            renderProducts();
+            renderWishlist();
+        }
+
+        function renderWishlist() {
+            const container = document.getElementById('wishlist-items-container');
+            if (wishlist.length === 0) {
+                container.innerHTML = `
+                    <div class="h-full flex flex-col items-center justify-center text-gray-400 font-display text-center">
+                        <i class="fa-solid fa-heart text-4xl text-cozy-pink mb-2"></i>
+                        <p class="text-sm">No items in your wishlist yet.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = wishlist.map(id => {
+                const product = PRODUCTS.find(p => p.id === id);
+                if (!product) return '';
+
+                return `
+                    <div class="flex items-center space-x-3 bg-white p-2.5 rounded-2xl border border-cozy-pink/40">
+                        <img src="${product.image}" class="w-14 h-14 rounded-xl object-cover border border-cozy-pink">
+                        <div class="flex-1">
+                            <h4 class="font-display font-bold text-xs text-cozy-berry">${product.name}</h4>
+                            <span class="text-xs text-gray-500 font-bold">$${product.price.toFixed(2)}</span>
+                        </div>
+                        <button onclick="addToCart(${product.id})" class="p-2 bg-cozy-berry text-cozy-cream rounded-xl text-xs font-bold">
+                            <i class="fa-solid fa-cart-plus"></i>
+                        </button>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Update Nav Badge Counters
+        function updateBadges() {
+            const cartCount = cart.reduce((sum, item) => sum + item.qty, 0);
+            document.getElementById('cart-badge').textContent = cartCount;
+            document.getElementById('wishlist-badge').textContent = wishlist.length;
+        }
+
+        // Toast Notification System
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-msg').textContent = msg;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 2500);
+        }
+
+        // Custom Order Form Submission
+        function handleCustomSubmit(e) {
+            e.preventDefault();
+            showToast("Custom order request sent! Arnika will contact you soon 💕");
+            e.target.reset();
+        }
+
+        // Checkout Modal Logic
+        function openCheckout() {
+            if (cart.length === 0) {
+                showToast("Your cart is empty!");
+                return;
+            }
+            toggleModal('cart-modal');
+
+            let subtotal = cart.reduce((sum, item) => {
+                const p = PRODUCTS.find(prod => prod.id === item.id);
+                return sum + (p ? p.price * item.qty : 0);
+            }, 0);
+
+            document.getElementById('checkout-total').textContent = `$${subtotal.toFixed(2)}`;
+            toggleModal('checkout-modal');
+        }
+
+        function handleCheckoutSubmit(e) {
+            e.preventDefault();
+            toggleModal('checkout-modal');
+            cart = [];
+            updateBadges();
+            showToast("Order placed successfully! Thank you for supporting handmade! 🌸");
+        }
+    </script>
+</body>
+</html>
